@@ -75,15 +75,9 @@ textarea {
   margin-bottom: 0.5rem;
 }
 
-.lede,
 .panel-header p,
 .muted {
   color: var(--muted);
-}
-
-.lede {
-  max-width: 36rem;
-  line-height: 1.5;
 }
 
 .layout {
