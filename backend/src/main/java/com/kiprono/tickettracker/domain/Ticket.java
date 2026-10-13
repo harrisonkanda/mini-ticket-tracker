@@ -11,13 +11,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.Instant;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * A support ticket. Title and description are fixed at creation; only status and
- * priority change afterwards, which is why those are the only setters.
+ * priority change afterwards, which is why those are the only fields with a setter.
  */
 @Entity
 @Table(name = "tickets")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // JPA needs a no-args constructor
 public class Ticket {
 
     @Id
@@ -30,20 +36,18 @@ public class Ticket {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 32)
     private TicketStatus status;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 32)
     private TicketPriority priority;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
-
-    protected Ticket() {
-        // required by JPA
-    }
 
     public Ticket(String title, String description, TicketStatus status, TicketPriority priority) {
         this.title = title;
@@ -57,37 +61,5 @@ public class Ticket {
         if (createdAt == null) {
             createdAt = Instant.now();
         }
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public TicketStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TicketStatus status) {
-        this.status = status;
-    }
-
-    public TicketPriority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(TicketPriority priority) {
-        this.priority = priority;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
     }
 }

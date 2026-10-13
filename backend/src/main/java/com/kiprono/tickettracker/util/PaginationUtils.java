@@ -3,6 +3,8 @@ package com.kiprono.tickettracker.util;
 import com.kiprono.tickettracker.config.TicketTrackerProperties;
 import com.kiprono.tickettracker.constant.PaginationConstants;
 import com.kiprono.tickettracker.exception.BadRequestException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,10 +13,8 @@ import org.springframework.data.domain.Sort;
  * Converts the public 1-based {@code page}/{@code limit} contract into Spring Data's
  * 0-based {@link Pageable}, applying the configured default and maximum page size.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PaginationUtils {
-
-    private PaginationUtils() {
-    }
 
     /**
      * @param page  1-based page number, or {@code null} for the first page

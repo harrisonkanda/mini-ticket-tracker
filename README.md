@@ -11,6 +11,7 @@ Harrison Kiprono
 ## What's in it
 
 - Java 25, Spring Boot 4, Spring Data JPA
+- Lombok for getters, constructors and the logger
 - PostgreSQL 16, with Flyway for the schema
 - Swagger UI for the API docs (springdoc)
 - React 19 + TypeScript, built with Vite

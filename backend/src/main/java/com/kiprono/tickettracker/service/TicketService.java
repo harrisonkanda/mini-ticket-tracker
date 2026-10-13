@@ -18,6 +18,7 @@ import com.kiprono.tickettracker.repository.TicketStatusCount;
 import com.kiprono.tickettracker.util.PaginationUtils;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -29,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
  * the controller stays a thin HTTP adapter.
  */
 @Service
+@RequiredArgsConstructor
 public class TicketService {
 
     // id breaks ties between tickets created in the same instant, keeping page boundaries stable.
@@ -37,17 +39,7 @@ public class TicketService {
 
     private final TicketRepository ticketRepository;
     private final TicketMapper ticketMapper;
-    private final TicketTrackerProperties.Pagination pagination;
-
-    public TicketService(
-            TicketRepository ticketRepository,
-            TicketMapper ticketMapper,
-            TicketTrackerProperties properties
-    ) {
-        this.ticketRepository = ticketRepository;
-        this.ticketMapper = ticketMapper;
-        this.pagination = properties.pagination();
-    }
+    private final TicketTrackerProperties properties;
 
     /**
      * Creates a ticket. New tickets always start as {@code open}; the client cannot choose
@@ -78,7 +70,7 @@ public class TicketService {
      */
     @Transactional(readOnly = true)
     public PageResponse<TicketResponse> list(TicketStatus status, Integer page, Integer limit) {
-        Pageable pageable = PaginationUtils.toPageable(page, limit, pagination, NEWEST_FIRST);
+        Pageable pageable = PaginationUtils.toPageable(page, limit, properties.pagination(), NEWEST_FIRST);
         Page<Ticket> tickets = status == null
                 ? ticketRepository.findAll(pageable)
                 : ticketRepository.findByStatus(status, pageable);

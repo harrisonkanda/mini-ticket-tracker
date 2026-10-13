@@ -2,10 +2,13 @@ package com.kiprono.tickettracker.constant;
 
 import com.kiprono.tickettracker.domain.TicketPriority;
 import com.kiprono.tickettracker.domain.TicketStatus;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Ticket rules shared by the entity mapping, request validation and the service.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TicketConstants {
 
     /** Keep in sync with the column width in V1__create_tickets_table.sql. */
@@ -18,7 +21,4 @@ public final class TicketConstants {
     /** Entity property the ticket list is ordered by (newest first). */
     public static final String SORT_PROPERTY = "createdAt";
     public static final String SORT_TIE_BREAKER = "id";
-
-    private TicketConstants() {
-    }
 }

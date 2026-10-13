@@ -4,8 +4,7 @@ import com.kiprono.tickettracker.dto.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +20,9 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
  * Turns every exception into the same {@link ErrorResponse} JSON, so clients only
  * have one error format to handle. One method per kind of failure.
  */
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /** The ticket id does not exist. */
     @ExceptionHandler(ResourceNotFoundException.class)

@@ -2,6 +2,7 @@ package com.kiprono.tickettracker.config;
 
 import com.kiprono.tickettracker.constant.ApiPaths;
 import com.kiprono.tickettracker.domain.TicketStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -13,14 +14,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * from the query string.
  */
 @Configuration
+@RequiredArgsConstructor
 @EnableConfigurationProperties(TicketTrackerProperties.class)
 public class WebConfig implements WebMvcConfigurer {
 
-    private final TicketTrackerProperties.Cors cors;
-
-    public WebConfig(TicketTrackerProperties properties) {
-        this.cors = properties.cors();
-    }
+    private final TicketTrackerProperties properties;
 
     /**
      * Spring would only accept {@code ?status=IN_PROGRESS} by default. This makes query params
@@ -34,6 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
     /** Allowed origins and methods come from application.yml, so they can differ per environment. */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        TicketTrackerProperties.Cors cors = properties.cors();
         if (cors.allowedOrigins().isEmpty()) {
             return;
         }
