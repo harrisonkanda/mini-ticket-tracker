@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ticket-tracker-db
+    environment:
+      POSTGRES_DB: ticket_tracker
+      POSTGRES_USER: ticket
+      POSTGRES_PASSWORD: ticket
+    ports:
+      # Override DB_PORT if 5432 is already taken by a local Postgres (the backend reads the same variable).
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - ticket_tracker_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ticket -d ticket_tracker"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  ticket_tracker_pgdata:
