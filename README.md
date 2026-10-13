@@ -6,6 +6,8 @@ I built this as a take-home exercise. The brief asked for judgment over feature 
 
 Harrison Kiprono
 
+![Ticket list with the create form and the counts per status](docs/screenshots/ticket-list.png)
+
 ## What's in it
 
 - Java 25, Spring Boot 4, Spring Data JPA
@@ -57,6 +59,18 @@ npm run dev
 ```
 
 Then open http://localhost:5173.
+
+## Screenshots
+
+The whole UI is one page, shown at the top of this README: the counts per status, the form on the left, and the ticket list with a status dropdown on every row.
+
+Filtering the list by status:
+
+![List filtered to tickets that are in progress](docs/screenshots/filter-by-status.png)
+
+The API documented in Swagger UI, with the create endpoint opened:
+
+![Swagger UI showing the four ticket endpoints](docs/screenshots/swagger-ui.png)
 
 ## Building it
 

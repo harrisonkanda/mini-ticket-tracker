@@ -55,7 +55,7 @@ textarea {
 }
 
 .app-shell {
-  width: min(1120px, calc(100% - 2rem));
+  width: min(1240px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 2.5rem 0 3.5rem;
 }
@@ -89,7 +89,7 @@ textarea {
 .layout {
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: minmax(280px, 340px) 1fr;
+  grid-template-columns: minmax(260px, 320px) 1fr;
   align-items: start;
 }
 
@@ -221,6 +221,11 @@ th {
   color: var(--muted);
 }
 
+/* Give the title column the spare width so long titles don't wrap into a narrow strip. */
+th:nth-child(2) {
+  width: 42%;
+}
+
 .ticket-title {
   font-weight: 700;
 }
@@ -279,7 +284,7 @@ th {
 
 td select,
 .inline-filter select {
-  min-width: 8.5rem;
+  min-width: 9rem;
 }
 
 td .feedback {
