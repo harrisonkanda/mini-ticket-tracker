@@ -1,14 +1,16 @@
 package com.kiprono.tickettracker.config;
 
 import com.kiprono.tickettracker.constant.ApiPaths;
+import com.kiprono.tickettracker.domain.TicketStatus;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * CORS for the browser client. Origins and methods come from YAML so each environment
- * can point at its own UI host without a code change.
+ * Web layer setup: CORS for the browser client, and reading {@code ?status=in_progress}
+ * from the query string.
  */
 @Configuration
 @EnableConfigurationProperties(TicketTrackerProperties.class)
@@ -20,6 +22,16 @@ public class WebConfig implements WebMvcConfigurer {
         this.cors = properties.cors();
     }
 
+    /**
+     * Spring would only accept {@code ?status=IN_PROGRESS} by default. This makes query params
+     * use the same lowercase values as the JSON body.
+     */
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(String.class, TicketStatus.class, TicketStatus::fromWireValue);
+    }
+
+    /** Allowed origins and methods come from application.yml, so they can differ per environment. */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         if (cors.allowedOrigins().isEmpty()) {

@@ -230,7 +230,7 @@ backend/src/main/java/com/kiprono/tickettracker/
   exception/     custom exceptions and the global error handler
   config/        typed config properties, CORS, OpenAPI
   constant/      API paths, field limits
-  util/          pagination and enum helpers
+  util/          pagination helper
 
 frontend/src/
   api/           fetch wrapper and the ticket calls

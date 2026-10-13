@@ -47,8 +47,8 @@ export function TicketTrackerPage() {
           loading={tickets.loading}
           error={tickets.error}
           statusFilter={tickets.statusFilter}
-          onPageChange={tickets.setPage}
-          onStatusFilterChange={tickets.setStatusFilter}
+          onPageChange={tickets.changePage}
+          onStatusFilterChange={tickets.changeStatusFilter}
           onStatusChange={handleStatusChange}
         />
       </main>
