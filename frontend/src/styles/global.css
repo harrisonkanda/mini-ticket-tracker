@@ -244,6 +244,7 @@ th {
   padding: 0.2rem 0.55rem;
   font-size: 0.78rem;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .badge-open {
